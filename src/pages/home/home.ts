@@ -1,6 +1,8 @@
-import { Vocabulary } from './../../interfaces/vocabulary';
+import { GamePage } from './../game/game';
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController} from 'ionic-angular';
+import { Vocabulary } from '../../interfaces/vocabulary';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'page-home',
@@ -11,25 +13,65 @@ export class HomePage {
 //Lokalisierung
 
 buttonAdd: string;
-spanischTitle: string;
-deutschTitle: string;
+spanischTitle: string ="Spanisch";
+deutschTitle: string = "Deutsch";
 spanischText: string;
 deutschText: string;
+vocabularies: Vocabulary[] = [];
 
-vocabulary: Vocabulary = {
-  spanisch: null,
-  deutsch: null
-};
-
-vocabularies: Vocabulary[];
 
 //Exceptions
+msgMissingFields: string ="Bitte Felder füllen";
+msgAdded: string ="Vokabel erfolgreich hinzugefügt!"
 
 transactionSuccessText: string;
 errorText: string;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController,private storage: Storage) {
 
+
+}
+
+addVoc(): void{
+  if(!this.spanischText || !this.deutschText || this.spanischText === "" || this.deutschText === "" ){
+   // alert("Bitte Felder füllen");
+    this.showToast(this.msgMissingFields);
   }
+  else{
+    const item = {
+      spanisch:this.spanischText,
+      deutsch:this.deutschText
+    };
+    this.vocabularies.push(item);
+    //alert(JSON.stringify(this.vocabularies));
+    this.storage.set('vocabularies', JSON.stringify(this.vocabularies));
+
+
+
+    this.showToast(this.msgAdded);
+    this.clearText();
+  }
+
+}
+
+private showToast(message: string): void {
+  let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000
+  });
+  toast.present();
+}
+
+clearText(): void{
+  this.spanischText="";
+  this.deutschText="";
+
+
+}
+
+
+
+
+
 
 }

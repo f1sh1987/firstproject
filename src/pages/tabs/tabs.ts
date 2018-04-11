@@ -1,3 +1,4 @@
+import { DictionaryPage } from './../dictionary/dictionary';
 import { GamePage } from './../game/game';
 import { Component } from '@angular/core';
 
@@ -12,6 +13,7 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = GamePage;
+  tab3Root = DictionaryPage;
 
 
   constructor() {

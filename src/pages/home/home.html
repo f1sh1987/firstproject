@@ -8,8 +8,29 @@
 Neue Vokabeln hinzufügen
 <ion-list>
 <ion-item>
-
+  <ion-label>
+  <ion-img width="20" height="20" src="../assets/imgs/spain_flag.png"></ion-img>
+</ion-label>
+<ion-input type="text" placeholder={{spanischTitle}} [(ngModel)]="spanischText"></ion-input>
 </ion-item>
+<ion-item>
+  <ion-label>
+      <ion-img width="20" height="20" src="../assets/imgs/germany_flag.png"></ion-img>
+</ion-label>
+  <ion-input type="text" placeholder={{deutschTitle}} [(ngModel)]="deutschText"></ion-input>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+            <ion-col>
+            <button ion-button color="secondary" round block (tap)="addVoc()">
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-col>
+
+
+    </ion-row>
+  </ion-grid>
+
 
 </ion-list>
 </ion-content>
