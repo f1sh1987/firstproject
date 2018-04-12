@@ -12,32 +12,38 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DicSearchProvider {
 
-  vocabularies: Vocabulary[]=[];
+  vocabularies: Vocabulary[];
   constructor(public http: HttpClient, public storage: Storage) {
     this.initialize();
-
-  }
-
-  ionViewDidEnter(){
-    this.initialize();
-
   }
 
 
 
   initialize(): void {
-
     this.storage.get('vocabularies')
     .then(vocabularies => {
         if (vocabularies) {
+
             this.vocabularies = JSON.parse(vocabularies);
+
+
         } else {
             this.vocabularies = [];
         }
     });
 
+
   }
 
+
+
+  storeItems(item): void{
+
+
+    this.vocabularies.push(item);
+    this.storage.set('vocabularies', (JSON.stringify(this.vocabularies)));
+
+  }
   filteredItems(searchTerm){
 
     return this.vocabularies.filter((vocabularies) => {

@@ -7,12 +7,39 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>game</ion-title>
+    <ion-list>
+    <ion-title>Was bedeutet "{{question}}"? <div class="count"> {{count}} </div> </ion-title>
+
+  </ion-list>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-list>
 
+    <ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button  ion-button color="{{buttonColor}}" (tap)="checkAnswer(selVoc[0],$event)" id="b1" style="text-transform: none;" > {{selVoc[0]}}</button>
+        </ion-col>
+        <ion-col>
+            <button  ion-button color="{{buttonColor}}" (tap)="checkAnswer(selVoc[1],$event)" id="b2" style="text-transform: none;"> {{selVoc[1]}}</button>
+          </ion-col>
+       </ion-row>
+       <ion-row>
+          <ion-col>
+            <button  ion-button color="{{buttonColor}}" (tap)="checkAnswer(selVoc[2],$event)" id="b3" style="text-transform: none;" > {{selVoc[2]}}</button>
+          </ion-col>
+          <ion-col>
+              <button  ion-button color="{{buttonColor}}" (tap)="checkAnswer(selVoc[3],$event)" id="b4" style="text-transform: none;" > {{selVoc[3]}}</button>
+            </ion-col>
+         </ion-row>
+
+    </ion-grid>
+
+</ion-item>
+        </ion-list>
 </ion-content>

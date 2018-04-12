@@ -1,8 +1,7 @@
 import { DicSearchProvider } from './../../providers/dic-search/dic-search';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController} from 'ionic-angular';
 import { Vocabulary } from '../../interfaces/vocabulary';
-import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the DictionaryPage page.
@@ -20,32 +19,22 @@ export class DictionaryPage {
 
 
   searchTerm: string = '';
-  vocabularies: Vocabulary[]=[];
+  vocabularies: Vocabulary[];
 
-  constructor(public navCtrl: NavController,public NavParams: NavParams, public dataService: DicSearchProvider, public storage: Storage) {
+  constructor(public navCtrl: NavController, public dataService: DicSearchProvider) {
 
 
   }
 
-
 ionViewDidEnter(){
-  this.initialize();
+  this.vocabularies=this.dataService.vocabularies;
+}
+
+ionViewDidLoad(){
+
   this.setFilteredItems();
 }
 
-
-  initialize(): void {
-
-    this.storage.get('vocabularies')
-    .then(vocabularies => {
-        if (vocabularies) {
-            this.vocabularies = JSON.parse(vocabularies);
-        } else {
-            this.vocabularies = [];
-        }
-    });
-
-  }
 
 
   setFilteredItems(): void {

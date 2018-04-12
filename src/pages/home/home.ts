@@ -1,8 +1,6 @@
-import { GamePage } from './../game/game';
 import { Component } from '@angular/core';
 import { NavController, ToastController} from 'ionic-angular';
-import { Vocabulary } from '../../interfaces/vocabulary';
-import {Storage} from '@ionic/storage';
+import { DicSearchProvider } from '../../providers/dic-search/dic-search';
 
 @Component({
   selector: 'page-home',
@@ -17,7 +15,6 @@ spanischTitle: string ="Spanisch";
 deutschTitle: string = "Deutsch";
 spanischText: string;
 deutschText: string;
-vocabularies: Vocabulary[] = [];
 
 
 //Exceptions
@@ -27,14 +24,15 @@ msgAdded: string ="Vokabel erfolgreich hinzugefügt!"
 transactionSuccessText: string;
 errorText: string;
 
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController,private storage: Storage) {
-
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController, public dataService: DicSearchProvider) {
 
 }
 
+
+
 addVoc(): void{
+
   if(!this.spanischText || !this.deutschText || this.spanischText === "" || this.deutschText === "" ){
-   // alert("Bitte Felder füllen");
     this.showToast(this.msgMissingFields);
   }
   else{
@@ -42,10 +40,7 @@ addVoc(): void{
       spanisch:this.spanischText,
       deutsch:this.deutschText
     };
-    this.vocabularies.push(item);
-    //alert(JSON.stringify(this.vocabularies));
-    this.storage.set('vocabularies', JSON.stringify(this.vocabularies));
-
+    this.dataService.storeItems(item);
 
 
     this.showToast(this.msgAdded);
